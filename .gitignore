@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# OS
+.DS_Store
+
+# lib and out
+lib/
+out/
