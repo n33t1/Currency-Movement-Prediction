@@ -6,12 +6,10 @@ This project is a LSTM-based Recurrent Neural Network that predicts currency exc
 
 ### Preprocessing
 
-Date, GBP, Day-Before, Day-After, Week-Before, Week-After
-Title, Date, Content, Year, Month, Day
+* Features 
+Currency Data: Date, GBP, Day-Before, Day-After, Week-Before, Week-After
+News Data: Title, Date, Content, Year, Month, Day
 
-### Baseline
-
-### NN Design 
 
 `Google hit with €1.5bn fine from EU over advertising` -> `EU (EU) neg Google (US)` -> `USD goes down, EUR goes up`
 `Trump declares national emergency to fund the wall` -> `Trump (US) neg` -> `USD goes down`
@@ -20,5 +18,8 @@ Title, Date, Content, Year, Month, Day
 
 1. We need to find a way to map entities mentioned in news (company, people, etc) to countries they belonged to. For example, in the news "Google hit with €1.5bn fine from EU over advertising", we need to find a way to map Google to US before performing sentiment analysis. 
 2. How will entities be represented in the input (will word2vec still work in this case?)
-3. Baselines to use. There are research on news sentiment vs. stock/cryptocurrency movements but nothing for news sentiment vs. currency movements. What should we use for baseline besides random?
-4. What parameters to tune for LSTM.
+3. How to evaluate/ Baselines to use. There are research on news sentiment vs. stock/cryptocurrency movements but nothing for news sentiment vs. currency movements. What should we use for baseline besides random?
+4. Common parameters to tune for LSTM?
+
+
+openexchangerates
