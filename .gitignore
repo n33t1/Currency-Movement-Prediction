@@ -109,3 +109,7 @@ venv.bak/
 # lib and out
 lib/
 out/
+
+# references
+q3/*
+q4/*
