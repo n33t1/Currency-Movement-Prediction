@@ -1,5 +1,5 @@
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, LSTM
+from keras.layers import Dense, Dropout, LSTM, Bidirectional
 from keras.optimizers import Adam
 
 class BasicLSTM:
@@ -14,7 +14,7 @@ class BasicLSTM:
         model.add(Dropout(0.2))
         model.add(Dense(1, activation = "linear"))
 
-        model.summary()
+        # model.summary()
         return model
 
     def train(self, train_x, train_y, **kwargs):

@@ -42,8 +42,9 @@ def read_file(name, type):
         print(f"An error occured when trying to read text file! Error message: {e}")
         raise
 
-def save_file(filename, content):
-    make_dir(filename)
-    filehandler = open(filename, "wb")
+def save_file(path, content):
+    # make_dir()
+    print('/'.join(path.split('/')[:-1]))
+    filehandler = open(path, "wb")
     pickle.dump(content, filehandler)
     filehandler.close()

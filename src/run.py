@@ -7,8 +7,9 @@ import numpy as np
 import datetime
 from random import randint
 
-from BasicLSTM import BasicLSTM
 from FeatureVector import FeatureVector
+from BasicLSTM import BasicLSTM
+from AttentionLSTM import AttentionLSTM
 
 from utils.file_io import open_file, read_file
 
@@ -63,17 +64,23 @@ if __name__ == "__main__":
     serialized_news = df['News'].values.tolist()
     news = [n.split('/,,,/') for n in serialized_news]
 
-    fv = FeatureVector.get_fv(dates, labels, news, 'USD-EUR_word2int')
+    fv = FeatureVector.get_fv(dates, labels, news, 'USD-EUR_word2glove')
     feature_vec = fv.fv
 
     windows = k_fold(dates)
+    # TODO: remove [:1] here
     for s, p, e in windows[:1]:
         train_x, train_y = get_dataset(s, p, feature_vec, labels)
         test_x, test_y = get_dataset(p, e, feature_vec, labels)
         input_size = (None, train_x.shape[1], train_x.shape[2])
-        lstm = BasicLSTM(input_size)
 
-        lstm.train(train_x, train_y, epochs=500)
-        lstm.save_weights('tmp/basic_lstm_1000.weights')
-        acc = lstm.evaluate(test_x, test_y)
-        print("acc: ", acc)
+        # print(train_x, train_y)
+        attention_lstm = AttentionLSTM(input_size, 300, 300)
+        attention_lstm.train(train_x, train_y, epochs=500)
+
+        # lstm = BasicLSTM(input_size)
+
+        # lstm.train(train_x, train_y, epochs=500)
+        # lstm.save_weights('tmp/basic_lstm_1000.weights')
+        # acc = lstm.evaluate(test_x, test_y)
+        # print("acc: ", acc)
