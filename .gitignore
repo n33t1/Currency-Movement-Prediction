@@ -109,3 +109,4 @@ venv.bak/
 # lib and out
 lib/
 out/
+tmp/
