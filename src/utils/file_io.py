@@ -4,15 +4,22 @@ import pickle
 
 DIR_PATH = '/'.join(os.path.dirname(__file__).split('/')[:-2])
 
+def exist_file(file_path):
+    return os.path.isfile(file_path)
+    
 def open_files(files_path):
     path = os.path.join(DIR_PATH, files_path)
     files = glob.glob(path)
     return files
 
 def open_file(files_path):
-    path = os.path.join(DIR_PATH, files_path)
-    files = glob.glob(path)
-    return files[0]
+    try:
+        path = os.path.join(DIR_PATH, files_path)
+        files = glob.glob(path)
+        return files[0]
+    except Exception as e:
+        print(f'File({file_path}) does not exist! Error: {e}')
+        raise
 
 def make_dir(path):
     if not os.path.exists(path):
@@ -36,7 +43,7 @@ def read_file(name, type):
         raise
 
 def save_file(filename, content):
-    # TODO: if path does not exist, create directories
+    make_dir(filename)
     filehandler = open(filename, "wb")
     pickle.dump(content, filehandler)
     filehandler.close()

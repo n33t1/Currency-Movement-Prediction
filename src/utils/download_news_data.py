@@ -2,8 +2,7 @@ import pandas as pd
 from file_io import open_files
 
 NEWS_PATH = "lib/raw/all-the-news/*.csv"
-ARTICLE_OUT_PATH = "lib/news_articles_16-17.csv"
-TITLE_OUT_PATH = "lib/news_titles_16-17.csv"
+TITLE_OUT_PATH = "lib/raw/news_titles_16-17.csv"
 
 def run():
     dataframes = []
@@ -24,10 +23,6 @@ def run():
     df = pd.concat(dataframes)
     df = df.drop_duplicates(subset=['Title'], keep='first')
     df = df.sort_values(by=['Date'])
-
-    # saving both news titles and news articles
-    df.to_csv(ARTICLE_OUT_PATH)
-    print(f"News articles saved in {ARTICLE_OUT_PATH} successfully!")
 
     # saving news titles
     df.pop("Content")
