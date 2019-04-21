@@ -1,109 +1,64 @@
 from utils.file_io import open_files, read_file, save_file
 import numpy as np 
-from Data import Data
+from itertools import zip_longest
 
-class FeatureVector:
-    def __init__(self, data):
-        self.labels = []
-        self.dates = []
-        self.date_len = 0
-        self.date_to_idx = {}
-        self.word_to_ints = []
-        self.word_to_vec = []
-        self.max_seq_len = 0
-        self.vocab = set()
-        self.idx_to_word = []
-        self.word_to_int = {}
-        self.group_timestamp(data)
+from DataVector import DataVector
+
+class FeatureVector(DataVector):
+    def __init__(self, data_vector):
+        super(FeatureVector, self).__init__(**data_vector.__dict__)
+        self.data_vec = data_vector
+        self.word2vec = self.init_word2vec()
+        print(self.word2vec)
+        
+        # self.word2int = self.init_word2int()
     
-    # @classmethod
-    # def get_feature_vector(cls, news_df, forex_df):
-    #     path = 'tmp/feature_vector.obj'
-    #     try:
-    #         filename = open_files(path)
-    #         if not filename:
-    #             raise FileNotFoundError
-    #         feature_vec = read_file(filename[0], 'obj')
-    #     except FileNotFoundError:
-    #         feature_vec = FeatureVector(news_df, forex_df)
-    #         save_file(path, feature_vec)
-    #     return feature_vec
-    @classmethod
-    def get_feature_vector(cls, data):
-        path = 'tmp/feature_vector.obj'
-        try:
-            filename = open_files(path)
-            if not filename:
-                raise FileNotFoundError
-            feature_vec = read_file(filename[0], 'obj')
-        except FileNotFoundError:
-            feature_vec = FeatureVector(data)
-            save_file(path, feature_vec)
-        return feature_vec
+    # def init_feature_vector(self):
+    #     self.get_name2entity()
+    
+    def init_word2int(self):
+        word_index = {'<PAD>': 0, '<NUM>': 1}
+        word_set = set(['<PAD>', '<NUM>'])
 
-    # def group_timestamp(self, news_df, forex_df):
-    #     dates = forex_df['Date'].values.tolist()
-    #     model = self._get_word2vec_model('lib/models/GoogleNews-vectors-negative300.bin')
+        N = 2
+        res = []
 
-    #     for date in dates:
-    #         label = forex_df.loc[forex_df['Date'] == date, 'DR_Classes'].tolist()[0]
-    #         self.labels.append(label)
-    #         news = news_df.loc[news_df['Date'] == date, 'Words'].tolist()
-    #         self.max_seq_len = max(self.max_seq_len, len(news))
-    #         self.word_to_vec.append([])
-
-    #         # for text in news[:10]:
-    #         #     temp = []
-    #         #     for word in text.split()[:3]:
-    #         #         if word in self.vocab:
-    #         #             temp.append(self.word_to_int[word])
-    #         #         else:
-    #         #             self.idx_to_word.append(word)
-    #         #             self.vocab.add(word)
-    #         #             self.word_to_int[word] = len(self.idx_to_word) - 1
-    #         #             temp.append(self.word_to_int[word])
-    #         #     self.word_to_ints[-1].append(temp)
-    #         for text in news[:10]:
-    #             words = text.split()
-    #             _word_vecs = self.get_word2vec(words, model)
-    #             self.word_to_vec[-1].append(_word_vecs)
-
-    def group_timestamp(self, d):
-        dates = d.date
-        model = self._get_word2vec_model('lib/models/GoogleNews-vectors-negative300.bin')
-
-        for i, date in enumerate(dates):
-            label = d.label[i]
-            news = d.news[i]
-            self.dates.append(date)
-            self.labels.append(label)
-            self.date_len += 1
-            self.date_to_idx[date] = self.date_len - 1
-            # news = news_df.loc[news_df['Date'] == date, 'Words'].tolist()
-            # self.max_seq_len = max(self.max_seq_len, len(news))
-            self.word_to_vec.append([])
-
-            # for text in news:
-            #     temp = []
-            #     for word in text.split()[:3]:
-            #         if word in self.vocab:
-            #             temp.append(self.word_to_int[word])
-            #         else:
-            #             self.idx_to_word.append(word)
-            #             self.vocab.add(word)
-            #             self.word_to_int[word] = len(self.idx_to_word) - 1
-            #             temp.append(self.word_to_int[word])
-            #     self.word_to_ints[-1].append(temp)
+        for i, date in enumerate(self.dates):
+            news = self.news[i]
+            day_vec = []
             for text in news:
+                curr_vec = np.zeros(self.longest_wv, dtype=np.int32)
                 words = text.split(' ')
-                _word_vecs = self.get_word2vec(words, model)
-                self.word_to_vec[-1].append(_word_vecs)
+                for i, w in enumerate(words):
+                    if w not in word_set:
+                        word_set.add(w)
+                        N += 1
+                        idx = N - 1
+                        word_index[w] = idx
+                    else:
+                        idx = word_index[w]
+                    curr_vec[i] = idx
+                day_vec.append(curr_vec)
+            res.append(np.array(day_vec))
+        res = np.array(res)
+        return res
     
+    # def _get_word2vec_model(self, path):
+    #     print("Loading word2vec...")
+    #     import gensim 
+    #     from gensim.models import Word2Vec 
+    #     model = gensim.models.KeyedVectors.load_word2vec_format(path, binary=True)
+    #     print("Done loading! Now creating word vectors...")
+    #     return model
+
     def _get_word2vec_model(self, path):
-        print("Loading word2vec...")
-        import gensim 
-        from gensim.models import Word2Vec 
-        model = gensim.models.KeyedVectors.load_word2vec_format(path, binary=True)
+        print("Loading Stanford’s GloVe Embedding model...")
+        # from gensim.scripts.glove2word2vec import glove2word2vec
+        # word2vec_output_file = 'lib/models/glove.6B.100d.txt.word2vec'
+        # glove2word2vec(path, word2vec_output_file)
+
+        from gensim.models import KeyedVectors
+        model = KeyedVectors.load_word2vec_format(path, binary=False)
         print("Done loading! Now creating word vectors...")
         return model
 
@@ -117,3 +72,18 @@ class FeatureVector:
                 vec = model.get_vector(word)
                 temp = np.add(temp, vec)
         return np.true_divide(temp, n)
+
+    def init_word2vec(self):
+        # model = self._get_word2vec_model('lib/models/GoogleNews-vectors-negative300.bin')
+        model = self._get_word2vec_model('lib/models/glove.6B.300d.txt.word2vec')
+        
+        res = []
+        for i, date in enumerate(self.dates):
+            news = self.news[i]
+            res.append([])
+            for text in news:
+                words = text.split(' ')
+                _word_vecs = self.get_word2vec(words, model)
+                res[-1].append(_word_vecs)
+        return np.array(res)
+
