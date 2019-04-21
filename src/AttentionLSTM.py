@@ -4,7 +4,7 @@ from keras.layers import Dense, Dropout, LSTM, Bidirectional, GRU, Embedding, In
 from keras.models import Model
 from keras.optimizers import Adam
 
-from Attention import Attention
+# from Attention import Attention
 
 class AttentionLSTM:
     def __init__(self, input_size, max_features, maxlen):

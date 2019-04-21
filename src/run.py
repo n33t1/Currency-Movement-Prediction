@@ -46,6 +46,7 @@ def test(test_x, test_y):
     return acc
 
 def get_dataset(start, end, feature_vec, labels):
+    feature_vec = fv.fv
     train_x, train_y = [], []
     x, y = np.array(feature_vec[start:end+1]), np.array(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1])))
     if len(x.shape) == 4:
@@ -64,23 +65,19 @@ if __name__ == "__main__":
     serialized_news = df['News'].values.tolist()
     news = [n.split('/,,,/') for n in serialized_news]
 
-    fv = FeatureVector.get_fv(dates, labels, news, 'USD-EUR_word2glove')
-    feature_vec = fv.fv
+    fv = FeatureVector.get_fv(dates, labels, news, 'USD-EUR_word2int')
 
     windows = k_fold(dates)
     # TODO: remove [:1] here
     for s, p, e in windows[:1]:
-        train_x, train_y = get_dataset(s, p, feature_vec, labels)
-        test_x, test_y = get_dataset(p, e, feature_vec, labels)
+        train_x, train_y = get_dataset(s, p, fv, labels)
+        test_x, test_y = get_dataset(p, e, fv, labels)
         input_size = (None, train_x.shape[1], train_x.shape[2])
+        # attention_lstm = AttentionLSTM(input_size, 300, 300)
+        # attention_lstm.train(train_x, train_y, epochs=500)
 
-        # print(train_x, train_y)
-        attention_lstm = AttentionLSTM(input_size, 300, 300)
-        attention_lstm.train(train_x, train_y, epochs=500)
-
-        # lstm = BasicLSTM(input_size)
-
-        # lstm.train(train_x, train_y, epochs=500)
+        lstm = BasicLSTM(input_size)
+        lstm.train(train_x, train_y, epochs=20)
         # lstm.save_weights('tmp/basic_lstm_1000.weights')
-        # acc = lstm.evaluate(test_x, test_y)
-        # print("acc: ", acc)
+        acc = lstm.evaluate(test_x, test_y)
+        print("acc: ", acc)

@@ -1,5 +1,5 @@
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, LSTM, Bidirectional
+from keras.layers import Dense, Dropout, LSTM, Bidirectional, Embedding, TimeDistributed, InputLayer, Flatten
 from keras.optimizers import Adam
 
 class BasicLSTM:
@@ -8,17 +8,28 @@ class BasicLSTM:
         
     def init_model(self, input_size):
         model = Sequential()
-        model.add(LSTM(256, batch_input_shape=input_size, return_sequences=True))
-        model.add(Dropout(0.2))
+        VOCAB_SIZE = 6624
+        EMBEDDING_SIZE = 128
+        MEMORY_SIZE = 100
+        # model.add(InputLayer(batch_input_shape=input_size))
+        model.add(TimeDistributed(Embedding(input_dim=VOCAB_SIZE, output_dim=EMBEDDING_SIZE), batch_input_shape=input_size, input_dtype='int32'))
+        model.add(TimeDistributed(Flatten()))
+        model.add(LSTM(MEMORY_SIZE, return_sequences=True))
         model.add(LSTM(128, return_sequences=False))
-        model.add(Dropout(0.2))
         model.add(Dense(1, activation = "linear"))
+        # model.add(Embedding(6624, output_dim=128, mask_zero=True))
+        # model.add(TimeDistributed(Flatten()))
+        # model.add(LSTM(256, batch_input_shape=input_size, return_sequences=True))
+        # model.add(Dropout(0.2))
+        # model.add(LSTM(128, return_sequences=False))
+        # model.add(Dropout(0.2))
+        # model.add(Dense(1, activation = "linear"))
 
         # model.summary()
         return model
 
     def train(self, train_x, train_y, **kwargs):
-        epochs = kwargs.get("epochs", 500)
+        epochs = kwargs.get("epochs", 100)
         learning_rate = kwargs.get("learning_rate", 0.005)
         validation_split = kwargs.get("validation_split", 0.3)
 
