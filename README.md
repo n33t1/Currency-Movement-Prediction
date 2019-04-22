@@ -19,3 +19,24 @@ This project used a (Attention-Based) LSTM to predict Foreign Exchange Market(Fo
 
 3. Run `python src/processing.py` to preprocess the datasets.
 4. Use `python src/run.py --trade_pair=['eur','jpy','cny','gbp','btc'] --feature_vec=['word2int','word2vec','word2glove']` to train the model. For example, `python src/run.py --trade_pair=eur --feature_vec=word2int` will train a model for USD-EUR pair with name to entity (word2int) model. 
+
+## Code Structure
+```
+lib
+  |- kbase
+     |- *.txt 
+  |- models* # YOU NEED TO ADD THESE YOURSELF
+     |- glove.6B.300d.txt
+     |- GoogleNews-vectors-negative300.bin
+  |- raw* # YOU NEED TO ADD THESE 
+     |- all-the-news
+     |- forex_16-17.csv
+     |- news_titles_16-17.csv
+src
+  |- utils
+  |- Attention.py
+  |- FeatureVector.py
+  |- Model.py
+  |- preprocessing.py
+  |- run.py
+```
