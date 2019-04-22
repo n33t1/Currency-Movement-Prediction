@@ -10,14 +10,14 @@ WORD2VEC_PATH = 'lib/models/GoogleNews-vectors-negative300.bin'
 class FeatureVector:
     def __init__(self, dates, labels, news, type_):
         self.x = len(dates)
-        self.y = 5
+        self.y = len(news[0])
         self.z = max([max([len(sent.split(' ')) for sent in n]) for n in news])
         if type_ == 'word2int':
             self.fv = self.init_word2int(dates, labels, news)
         elif type_ == 'word2vec':
-            self.fv = self.init_word2vec(dates, labels, news, type="Word2Vec")
+            self.fv = self.init_word2vec(dates, labels, news, "Word2Vec")
         elif type_ == 'word2glove':
-            self.fv = self.init_word2vec(dates, labels, news, type="GloVE")
+            self.fv = self.init_word2vec(dates, labels, news, "GloVE")
 
     @classmethod
     def get_fv(cls, dates, labels, news, file_name):
@@ -57,6 +57,7 @@ class FeatureVector:
                 day_vec.append(curr_vec)
             res.append(np.array(day_vec))
         res = np.array(res)
+        self.vocab_size = len(word_set)
         return res
     
     def _get_word2vec_model(self, path, type_):
@@ -95,9 +96,9 @@ class FeatureVector:
                 temp = np.add(temp, vec)
         return np.true_divide(temp, n)
 
-    def init_word2vec(self, dates, labels, news, type_):
-        model_path = GLOVE_PATH if type_ == 'GloVE' else WORD2VEC_PATH
-        model = self._get_word2vec_model(model_path)
+    def init_word2vec(self, dates, labels, news, vec_type):
+        model_path = GLOVE_PATH if vec_type == 'GloVE' else WORD2VEC_PATH
+        model = self._get_word2vec_model(model_path, vec_type)
         
         res = []
         for i, date in enumerate(dates):

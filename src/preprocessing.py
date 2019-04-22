@@ -99,7 +99,7 @@ def get_senti_score(text):
             continue 
     return senti_score
 
-def select_top_n_news(titles, kbase, n=5):
+def select_top_n_news(titles, kbase, n=10):
     ''' Using a greedy approach (news_in_kbase, sentiment score) to select top n news. '''
     hq = []
     for t in titles:
@@ -158,7 +158,7 @@ def run():
     
     kbase = init_kbase()
     
-    for curr in CURRENCIES[:1]:
+    for curr in CURRENCIES:
         trade_pair = f"USD-{curr}" 
         print(f"Processing {trade_pair} pair...")
         df = forex_df[['Date', curr]]
