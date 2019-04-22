@@ -14,7 +14,6 @@ from Model import Model
 from utils.file_io import open_file, read_file
 
 NEWS_PROCESSED_PATH = "lib/processed_news_titles_16-17.csv"
-FOREX_PATH = "lib/USD-EUR_forex_16-17.csv"
 
 FOREX_CLASS_TO_INT = {'NL': 1, 'NS': 2, 'PS':3, 'PL':4}
 ARG_TO_TRADE_PAIR = {'eur': 'USD-EUR','jpy': 'USD-JPY','cny': 'USD-CNY','gbp': 'USD-GBP','btc': 'USD-BTC'}
@@ -41,10 +40,15 @@ def get_dates_range(s, delta):
         res.append(curr_date)
     return shuffle(res)
 
-def get_dataset(start, end, fv, labels):
+def get_dataset(start, end, fv, labels, is_baseline):
     feature_vec = fv.fv
     train_x, train_y = [], []
-    x, y = np.array(feature_vec[start:end+1]), np.array(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1])))
+    x = np.array(feature_vec[start:end+1])
+    if is_baseline:
+        y = np.array(shuffle(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1]))))
+    else:
+        y = np.array(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1])))
+
     if len(x.shape) == 4:
         shape = (x.shape[0], x.shape[1], x.shape[2] * x.shape[3])
         x = np.reshape(x, shape)
@@ -55,6 +59,7 @@ def run(_trade_pair, _feature_vec, model):
     feature_vec = f"{trade_pair}_{_feature_vec}"
     is_attention = model == 'attention_lstm'
     is_word_embedding = _feature_vec != 'word2int'
+    is_baseline = model == "baseline"
 
     file_name = open_file(f'lib/{trade_pair}_16-17.csv')
     df = pd.read_csv(file_name)
@@ -71,12 +76,12 @@ def run(_trade_pair, _feature_vec, model):
     params = {'MEMORY_SIZE': 300}
     if not is_word_embedding:
         params.update({'VOCAB_SIZE': fv.vocab_size + 1, 'EMBEDDING_SIZE': 128})
-
+        
     windows = k_fold(dates)
     total_acc = 0
     for s, p, e in windows:
-        train_x, train_y = get_dataset(s, p, fv, labels)
-        test_x, test_y = get_dataset(p, e, fv, labels)
+        train_x, train_y = get_dataset(s, p, fv, labels, is_baseline)
+        test_x, test_y = get_dataset(p, e, fv, labels, is_baseline)
         input_size = (None, train_x.shape[1], train_x.shape[2])
         lstm = Model(input_size, is_word_embedding, is_attention, **params)
         lstm.train(train_x, train_y, epochs=10)
