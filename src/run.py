@@ -9,7 +9,7 @@ from random import randint
 import argparse
 
 from FeatureVector import FeatureVector
-from LSTM import LSTM
+from Model import Model
 
 from utils.file_io import open_file, read_file
 
@@ -78,7 +78,7 @@ def run(_trade_pair, _feature_vec, model):
         train_x, train_y = get_dataset(s, p, fv, labels)
         test_x, test_y = get_dataset(p, e, fv, labels)
         input_size = (None, train_x.shape[1], train_x.shape[2])
-        lstm = BasicLSTM(input_size, is_word_embedding, is_attention, **params)
+        lstm = Model(input_size, is_word_embedding, is_attention, **params)
         lstm.train(train_x, train_y, epochs=10)
         acc = lstm.evaluate(test_x, test_y)
         print("acc: ", acc)
