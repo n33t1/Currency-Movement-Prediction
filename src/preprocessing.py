@@ -7,6 +7,7 @@ from nltk import word_tokenize, pos_tag, ne_chunk
 from nltk.corpus import stopwords
 from nltk.corpus import sentiwordnet as swn
 
+from tqdm import tqdm
 
 from utils.file_io import open_file, open_files, read_file
 
@@ -96,13 +97,13 @@ def get_senti_score(text):
                 word_to_synset_cache[word + tag[0]] = score
                 senti_score += score
         else:
-            continue 
+            continue
     return senti_score
 
 def select_top_n_news(titles, kbase, n=10):
     ''' Using a greedy approach (news_in_kbase, sentiment score) to select top n news. '''
     hq = []
-    for t in titles:
+    for t in tqdm(titles):
         try:
             t = t.split(' - The New York Times')[0]
             set1 = set([w.lower() for w in t.split(' ')])
@@ -134,7 +135,7 @@ def init_kbase():
 def get_news(dates, news_df, kbase):
     titles = news_df['Title'].values.tolist()
     res = []
-    for curr_date in dates:
+    for curr_date in tqdm(dates):
         # select top 5 news
         titles = news_df.loc[news_df['Date'] == curr_date, 'Title'].tolist()
         filtered_titles = select_top_n_news(titles, kbase)

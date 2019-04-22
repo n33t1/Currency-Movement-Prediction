@@ -5,7 +5,9 @@ from utils.file_io import open_file, read_file, save_file, exist_file
 
 GLOVE_PATH = 'lib/models/glove.6B.300d.txt.word2vec'
 GLOVE_RAW = 'lib/models/glove.6B.100d'
-WORD2VEC_PATH = 'lib/models/GoogleNews-vectors-negative300.bin'
+#WORD2VEC_PATH = "/Users/kuriko/Documents/lib/GoogleNews-vectors-negative300/GoogleNews-vectors-negative300.bin"
+WORD2VEC_PATH = "/home/kuriko/lib/GoogleNews-vectors-negative300.bin.gz"
+#WORD2VEC_PATH = 'lib/models/GoogleNews-vectors-negative300.bin'
 
 class FeatureVector:
     def __init__(self, dates, labels, news, type_):

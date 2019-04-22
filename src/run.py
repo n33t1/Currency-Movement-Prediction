@@ -1,9 +1,9 @@
 import pandas as pd
-from random import sample, shuffle
+from random import sample, shuffle, randint
 import numpy as np
-# import matplotlib
-# matplotlib.use('TkAgg')
-# import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 import datetime
 from random import randint
 import argparse
@@ -40,32 +40,33 @@ def get_dates_range(s, delta):
         res.append(curr_date)
     return shuffle(res)
 
-def get_dataset(start, end, fv, labels, is_baseline):
+def get_dataset(start, end, fv, labels, is_test):
     feature_vec = fv.fv
     train_x, train_y = [], []
     x = np.array(feature_vec[start:end+1])
-    if is_baseline:
-        y = np.array(shuffle(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1]))))
-    else:
-        y = np.array(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1])))
-
+    y = np.array(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1])))
     if len(x.shape) == 4:
         shape = (x.shape[0], x.shape[1], x.shape[2] * x.shape[3])
         x = np.reshape(x, shape)
-    return x, y
+
+    if is_test:
+        baseline_y = np.array([randint(1,4) for _ in range(len(labels[start: end+1]))])
+        return x, y, baseline_y
+    else:
+        return x, y
 
 def run(_trade_pair, _feature_vec, model):
     trade_pair = ARG_TO_TRADE_PAIR[_trade_pair]
     feature_vec = f"{trade_pair}_{_feature_vec}"
     is_attention = model == 'attention_lstm'
     is_word_embedding = _feature_vec != 'word2int'
-    is_baseline = model == "baseline"
 
     file_name = open_file(f'lib/{trade_pair}_16-17.csv')
     df = pd.read_csv(file_name)
 
     dates = df['Date'].values.tolist()
     labels = df['DR_Classes'].values.tolist()
+    #labels = df[_trade_pair.upper()].values.tolist()
 
     date_to_idx = {k: v for v, k in enumerate(dates)}
     serialized_news = df['News'].values.tolist()
@@ -73,24 +74,35 @@ def run(_trade_pair, _feature_vec, model):
 
     fv = FeatureVector.get_fv(dates, labels, news, feature_vec)
 
-    params = {'MEMORY_SIZE': 300}
+    params = {'MEMORY_SIZE': 100}
     if not is_word_embedding:
         params.update({'VOCAB_SIZE': fv.vocab_size + 1, 'EMBEDDING_SIZE': 128})
-        
     windows = k_fold(dates)
-    total_acc = 0
+    total_acc, total_baseline_acc = 0, 0
     for s, p, e in windows:
-        train_x, train_y = get_dataset(s, p, fv, labels, is_baseline)
-        test_x, test_y = get_dataset(p, e, fv, labels, is_baseline)
+        train_x, train_y = get_dataset(s, p, fv, labels, False)
+        test_x, test_y, baseline_y = get_dataset(p, e, fv, labels, True)
+
         input_size = (None, train_x.shape[1], train_x.shape[2])
         lstm = Model(input_size, is_word_embedding, is_attention, **params)
-        lstm.train(train_x, train_y, epochs=10)
+        history = lstm.train(train_x, train_y, epochs=100)
+        
         acc = lstm.evaluate(test_x, test_y)
-        print("acc: ", acc)
+        baseline_acc = lstm.evaluate(test_x, baseline_y)
+        print(f"accuracy: {acc}, baseline_accuracy:{baseline_acc}")
+        history_df = pd.DataFrame(history.history)
+        history_df.to_csv(f"./out/{feature_vec}_{model}_{s}.csv")
         total_acc += acc
+        total_baseline_acc += baseline_acc
     
+    #avg_acc = total_acc 
     avg_acc = total_acc / len(windows)
-    print(f"Average accuracy for {trade_pair}-{feature_vec} is {avg_acc}")
+    avg_baseline_acc = total_baseline_acc / len(windows)
+    with open(f"./out/{feature_vec}_{model}_res.txt", "w+") as f:
+        f.write(f"Average accuracy for {feature_vec} is {avg_acc} \n")
+        f.write(f"Baseline accuracy for {feature_vec} is {avg_baseline_acc}")
+    print(f"Average accuracy for {feature_vec} is {avg_acc}")
+    print(f"Baseline accuracy for {feature_vec} is {avg_baseline_acc}")
     
 
 if __name__ == "__main__":
@@ -107,7 +119,7 @@ if __name__ == "__main__":
     
     parser.add_argument('--model', 
                         required=True, 
-                        choices=['baseline','lstm','attention_lstm'], 
+                        choices=['lstm','attention_lstm'], 
                         help='Model you want to use.')
     
     args = parser.parse_args()
