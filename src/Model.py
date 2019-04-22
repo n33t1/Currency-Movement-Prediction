@@ -26,6 +26,7 @@ class Model:
         if is_attention:
             model.add(Attention(10))
         model.add(Dense(256, activation="relu"))
+        model.add(Dropout(0.25))
         model.add(Dense(1, activation = "linear"))
         model.summary()
         return model
@@ -33,7 +34,7 @@ class Model:
     def train(self, train_x, train_y, **kwargs):
         epochs = kwargs.get("epochs", 100)
         learning_rate = kwargs.get("learning_rate", 0.005)
-        validation_split = kwargs.get("validation_split", 0.3)
+        validation_split = kwargs.get("validation_split", 0.1)
 
         optimizer = Adam(learning_rate)
         self.model.compile(loss="mean_squared_error", optimizer=optimizer, metrics=["accuracy"])

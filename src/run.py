@@ -19,7 +19,7 @@ FOREX_PATH = "lib/USD-EUR_forex_16-17.csv"
 FOREX_CLASS_TO_INT = {'NL': 1, 'NS': 2, 'PS':3, 'PL':4}
 ARG_TO_TRADE_PAIR = {'eur': 'USD-EUR','jpy': 'USD-JPY','cny': 'USD-CNY','gbp': 'USD-GBP','btc': 'USD-BTC'}
 
-def k_fold(dates, k=5):
+def k_fold(dates, k=7):
     ''' Create k windows. For example, if k=5 and there are 100 dates, we create 5 windows, where window 1 has train=dates[0:50] and test=[50:60], window 2 has train=dates[10:60] and test=[60:70], so on so forth. '''
     n = len(dates)
     delta = n // (k * 2)
