@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/
 lib64/
 parts/
 sdist/
@@ -107,6 +107,8 @@ venv.bak/
 .DS_Store
 
 # lib and out
-lib/
+lib/*.csv
+lib/models/
+lib/raw/
 out/
 tmp/
