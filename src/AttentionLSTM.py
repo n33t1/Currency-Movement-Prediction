@@ -43,3 +43,6 @@ class AttentionLSTM:
                 epochs=4,
                 validation_split=validation_split)
 
+    def evaluate(self, test_x, test_y):
+        _, acc = self.model.evaluate(test_x, test_y)
+        return acc

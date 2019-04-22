@@ -2,30 +2,32 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, LSTM, Bidirectional, Embedding, TimeDistributed, InputLayer, Flatten
 from keras.optimizers import Adam
 
-class BasicLSTM:
-    def __init__(self, input_size):
-        self.model = self.init_model(input_size)
-        
-    def init_model(self, input_size):
-        model = Sequential()
-        VOCAB_SIZE = 6624
-        EMBEDDING_SIZE = 128
-        MEMORY_SIZE = 100
-        # model.add(InputLayer(batch_input_shape=input_size))
-        model.add(TimeDistributed(Embedding(input_dim=VOCAB_SIZE, output_dim=EMBEDDING_SIZE), batch_input_shape=input_size, input_dtype='int32'))
-        model.add(TimeDistributed(Flatten()))
-        model.add(LSTM(MEMORY_SIZE, return_sequences=True))
-        model.add(LSTM(128, return_sequences=False))
-        model.add(Dense(1, activation = "linear"))
-        # model.add(Embedding(6624, output_dim=128, mask_zero=True))
-        # model.add(TimeDistributed(Flatten()))
-        # model.add(LSTM(256, batch_input_shape=input_size, return_sequences=True))
-        # model.add(Dropout(0.2))
-        # model.add(LSTM(128, return_sequences=False))
-        # model.add(Dropout(0.2))
-        # model.add(Dense(1, activation = "linear"))
+from Attention import Attention
 
-        # model.summary()
+class LSTM:
+    def __init__(self, input_size, is_word_embedding, is_attention, **kargs):
+        self.model = self.init_model(input_size, is_word_embedding, is_attention, **kargs)
+        
+    def init_model(self, input_size, is_word_embedding, is_attention, **kargs):
+        model = Sequential()
+        assert('MEMORY_SIZE' in kargs)
+        MEMORY_SIZE = kargs['MEMORY_SIZE']
+
+        if not is_word_embedding:
+            assert("VOCAB_SIZE" in kargs and 'EMBEDDING_SIZE' in kargs)
+            VOCAB_SIZE = kargs['VOCAB_SIZE']
+            EMBEDDING_SIZE = kargs['EMBEDDING_SIZE']
+            MAX_SEQUENCE_LENGTH = input_size[-1]
+
+            model.add(TimeDistributed(Embedding(input_dim=VOCAB_SIZE, input_length=MAX_SEQUENCE_LENGTH, output_dim=EMBEDDING_SIZE), batch_input_shape=input_size, input_dtype='int32'))
+            model.add(TimeDistributed(Flatten()))
+        
+        model.add(Bidirectional(LSTM(MEMORY_SIZE, batch_input_shape=input_size, return_sequences=is_attention, dropout=0.4, recurrent_dropout=0.4)))
+        if is_attention:
+            model.add(Attention(10))
+        model.add(Dense(256, activation="relu"))
+        model.add(Dense(1, activation = "linear"))
+        model.summary()
         return model
 
     def train(self, train_x, train_y, **kwargs):
