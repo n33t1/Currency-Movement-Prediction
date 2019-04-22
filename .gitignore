@@ -109,5 +109,6 @@ venv.bak/
 # lib and out
 lib/models/
 lib/raw/all-the-news
-out/
+out/*.csv
+out/*.txt
 tmp/
