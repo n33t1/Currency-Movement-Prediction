@@ -7,7 +7,7 @@ This project used a (Attention-Based) LSTM to predict Foreign Exchange Market(Fo
 
     2.1 News Title Dataset     
 
-    This project used [All the news](https://www.kaggle.com/snapcrack/all-the-news#articles1.csv) Dataset from Kaggle (ranging from `2016-01-01` to `2017-07-07`). If you want to use the same dataset, please download it and put the `.csv` files in `lib/raw/all-the-news`. 
+    This project used news titles from [All the news](https://www.kaggle.com/snapcrack/all-the-news#articles1.csv) Dataset from Kaggle (ranging from `2016-01-01` to `2017-07-07`). 
 
     2.2 Forex Dataset 
 
@@ -28,10 +28,10 @@ lib
   |- models* # YOU NEED TO ADD THESE YOURSELF
      |- glove.6B.300d.txt
      |- GoogleNews-vectors-negative300.bin
-  |- raw* # YOU NEED TO ADD THESE 
-     |- all-the-news
+  |- raw
      |- forex_16-17.csv
      |- news_titles_16-17.csv
+  |- USD-<CURRENCY_NAME>_16-17.csv
 src
   |- utils
   |- Attention.py

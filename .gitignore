@@ -107,8 +107,7 @@ venv.bak/
 .DS_Store
 
 # lib and out
-lib/*.csv
 lib/models/
-lib/raw/
+lib/raw/all-the-news
 out/
 tmp/
