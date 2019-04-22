@@ -1,5 +1,5 @@
 import pandas as pd
-from random import sample, shuffle
+from random import sample, shuffle, randint
 import numpy as np
 # import matplotlib
 # matplotlib.use('TkAgg')
@@ -44,8 +44,8 @@ def get_dataset(start, end, fv, labels, is_baseline):
     feature_vec = fv.fv
     train_x, train_y = [], []
     x = np.array(feature_vec[start:end+1])
-    if is_baseline:
-        y = np.array(shuffle(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1]))))
+    if is_baseline == '1':
+        y = np.array([randint(1,4) for _ in range(len(labels[start: end+1]))])
     else:
         y = np.array(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1])))
 
@@ -54,12 +54,11 @@ def get_dataset(start, end, fv, labels, is_baseline):
         x = np.reshape(x, shape)
     return x, y
 
-def run(_trade_pair, _feature_vec, model):
+def run(_trade_pair, _feature_vec, model, is_baseline):
     trade_pair = ARG_TO_TRADE_PAIR[_trade_pair]
     feature_vec = f"{trade_pair}_{_feature_vec}"
     is_attention = model == 'attention_lstm'
     is_word_embedding = _feature_vec != 'word2int'
-    is_baseline = model == "baseline"
 
     file_name = open_file(f'lib/{trade_pair}_16-17.csv')
     df = pd.read_csv(file_name)
@@ -83,13 +82,13 @@ def run(_trade_pair, _feature_vec, model):
         test_x, test_y = get_dataset(p, e, fv, labels, is_baseline)
         input_size = (None, train_x.shape[1], train_x.shape[2])
         lstm = Model(input_size, is_word_embedding, is_attention, **params)
-        lstm.train(train_x, train_y, epochs=10)
+        lstm.train(train_x, train_y, epochs=20)
         acc = lstm.evaluate(test_x, test_y)
         print("acc: ", acc)
         total_acc += acc
     
     avg_acc = total_acc / len(windows)
-    print(f"Average accuracy for {trade_pair}-{feature_vec} is {avg_acc}")
+    print(f"Average accuracy for {feature_vec} is {avg_acc}")
     
 
 if __name__ == "__main__":
@@ -106,7 +105,12 @@ if __name__ == "__main__":
     
     parser.add_argument('--model', 
                         required=True, 
-                        choices=['baseline','lstm','attention_lstm'], 
+                        choices=['lstm','attention_lstm'], 
+                        help='Model you want to use.')
+
+    parser.add_argument('--is_baseline', 
+                        default='0',
+                        choices=['0', '1'],
                         help='Model you want to use.')
     
     args = parser.parse_args()
@@ -114,5 +118,6 @@ if __name__ == "__main__":
     trade_pair = args.trade_pair
     feature_vec = args.feature_vec
     model = args.model
+    is_baseline = args.is_baseline
 
-    run(trade_pair, feature_vec, model)
+    run(trade_pair, feature_vec, model, is_baseline)
