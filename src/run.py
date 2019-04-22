@@ -73,10 +73,9 @@ def run(_trade_pair, _feature_vec, model):
 
     fv = FeatureVector.get_fv(dates, labels, news, feature_vec)
 
-    params = {'MEMORY_SIZE': 300}
+    params = {'MEMORY_SIZE': 100}
     if not is_word_embedding:
         params.update({'VOCAB_SIZE': fv.vocab_size + 1, 'EMBEDDING_SIZE': 128})
-        
     windows = k_fold(dates)
     total_acc = 0
     for s, p, e in windows:

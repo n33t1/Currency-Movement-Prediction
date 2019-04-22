@@ -28,7 +28,6 @@ class Model:
         model.add(Dense(256, activation="relu"))
         model.add(Dropout(0.25))
         model.add(Dense(1, activation = "linear"))
-        model.summary()
         return model
 
     def train(self, train_x, train_y, **kwargs):
