@@ -40,21 +40,22 @@ def get_dates_range(s, delta):
         res.append(curr_date)
     return shuffle(res)
 
-def get_dataset(start, end, fv, labels, is_baseline):
+def get_dataset(start, end, fv, labels, is_test):
     feature_vec = fv.fv
     train_x, train_y = [], []
     x = np.array(feature_vec[start:end+1])
-    if is_baseline == '1':
-        y = np.array([randint(1,4) for _ in range(len(labels[start: end+1]))])
-    else:
-        y = np.array(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1])))
-
+    y = np.array(list(map(FOREX_CLASS_TO_INT.get, labels[start: end+1])))
     if len(x.shape) == 4:
         shape = (x.shape[0], x.shape[1], x.shape[2] * x.shape[3])
         x = np.reshape(x, shape)
-    return x, y
 
-def run(_trade_pair, _feature_vec, model, is_baseline):
+    if is_test:
+        baseline_y = np.array([randint(1,4) for _ in range(len(labels[start: end+1]))])
+        return x, y, baseline_y
+    else:
+        return x, y
+
+def run(_trade_pair, _feature_vec, model):
     trade_pair = ARG_TO_TRADE_PAIR[_trade_pair]
     feature_vec = f"{trade_pair}_{_feature_vec}"
     is_attention = model == 'attention_lstm'
@@ -76,19 +77,25 @@ def run(_trade_pair, _feature_vec, model, is_baseline):
     if not is_word_embedding:
         params.update({'VOCAB_SIZE': fv.vocab_size + 1, 'EMBEDDING_SIZE': 128})
     windows = k_fold(dates)
-    total_acc = 0
+    total_acc, total_baseline_acc = 0, 0
     for s, p, e in windows:
-        train_x, train_y = get_dataset(s, p, fv, labels, is_baseline)
-        test_x, test_y = get_dataset(p, e, fv, labels, is_baseline)
+        train_x, train_y = get_dataset(s, p, fv, labels, False)
+        test_x, test_y, baseline_y = get_dataset(p, e, fv, labels, True)
+
         input_size = (None, train_x.shape[1], train_x.shape[2])
         lstm = Model(input_size, is_word_embedding, is_attention, **params)
         lstm.train(train_x, train_y, epochs=20)
+        
         acc = lstm.evaluate(test_x, test_y)
-        print("acc: ", acc)
+        baseline_acc = lstm.evaluate(test_x, baseline_y)
+        print(f"accuracy: {acc}, baseline_accuracy:{baseline_acc}")
         total_acc += acc
+        total_baseline_acc += baseline_acc
     
     avg_acc = total_acc / len(windows)
+    avg_baseline_acc = total_baseline_acc / len(windows)
     print(f"Average accuracy for {feature_vec} is {avg_acc}")
+    print(f"Baseline accuracy for {feature_vec} is {avg_baseline_acc}")
     
 
 if __name__ == "__main__":
@@ -107,17 +114,11 @@ if __name__ == "__main__":
                         required=True, 
                         choices=['lstm','attention_lstm'], 
                         help='Model you want to use.')
-
-    parser.add_argument('--is_baseline', 
-                        default='0',
-                        choices=['0', '1'],
-                        help='Model you want to use.')
     
     args = parser.parse_args()
 
     trade_pair = args.trade_pair
     feature_vec = args.feature_vec
     model = args.model
-    is_baseline = args.is_baseline
 
-    run(trade_pair, feature_vec, model, is_baseline)
+    run(trade_pair, feature_vec, model)
