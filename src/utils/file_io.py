@@ -18,7 +18,7 @@ def open_file(files_path):
         files = glob.glob(path)
         return files[0]
     except Exception as e:
-        print(f'File({file_path}) does not exist! Error: {e}')
+        print(f'File({files_path}) does not exist! Error: {e}')
         raise
 
 def make_dir(path):

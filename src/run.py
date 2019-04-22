@@ -1,9 +1,9 @@
 import pandas as pd
 from random import sample, shuffle, randint
 import numpy as np
-# import matplotlib
-# matplotlib.use('TkAgg')
-# import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 import datetime
 from random import randint
 import argparse
@@ -66,6 +66,7 @@ def run(_trade_pair, _feature_vec, model):
 
     dates = df['Date'].values.tolist()
     labels = df['DR_Classes'].values.tolist()
+    #labels = df[_trade_pair.upper()].values.tolist()
 
     date_to_idx = {k: v for v, k in enumerate(dates)}
     serialized_news = df['News'].values.tolist()
@@ -84,16 +85,22 @@ def run(_trade_pair, _feature_vec, model):
 
         input_size = (None, train_x.shape[1], train_x.shape[2])
         lstm = Model(input_size, is_word_embedding, is_attention, **params)
-        lstm.train(train_x, train_y, epochs=20)
+        history = lstm.train(train_x, train_y, epochs=100)
         
         acc = lstm.evaluate(test_x, test_y)
         baseline_acc = lstm.evaluate(test_x, baseline_y)
         print(f"accuracy: {acc}, baseline_accuracy:{baseline_acc}")
+        history_df = pd.DataFrame(history.history)
+        history_df.to_csv(f"./out/{feature_vec}_{model}_{s}.csv")
         total_acc += acc
         total_baseline_acc += baseline_acc
     
+    #avg_acc = total_acc 
     avg_acc = total_acc / len(windows)
     avg_baseline_acc = total_baseline_acc / len(windows)
+    with open(f"./out/{feature_vec}_{model}_res.txt", "w+") as f:
+        f.write(f"Average accuracy for {feature_vec} is {avg_acc} \n")
+        f.write(f"Baseline accuracy for {feature_vec} is {avg_baseline_acc}")
     print(f"Average accuracy for {feature_vec} is {avg_acc}")
     print(f"Baseline accuracy for {feature_vec} is {avg_baseline_acc}")
     

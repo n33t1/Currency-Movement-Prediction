@@ -1,7 +1,9 @@
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, LSTM, Bidirectional, Embedding, TimeDistributed, InputLayer, Flatten
 from keras.optimizers import Adam
+import keras
 
+import tensorflow as tf
 from Attention import Attention
 
 class Model:
@@ -9,7 +11,9 @@ class Model:
         self.model = self.init_model(input_size, is_word_embedding, is_attention, **kargs)
         
     def init_model(self, input_size, is_word_embedding, is_attention, **kargs):
+        print(input_size)
         model = Sequential()
+        
         assert('MEMORY_SIZE' in kargs)
         MEMORY_SIZE = kargs['MEMORY_SIZE']
 
@@ -31,20 +35,30 @@ class Model:
         return model
 
     def train(self, train_x, train_y, **kwargs):
-        epochs = kwargs.get("epochs", 100)
-        learning_rate = kwargs.get("learning_rate", 0.005)
-        validation_split = kwargs.get("validation_split", 0.1)
 
+        epochs = kwargs.get("epochs", 100)
+        learning_rate = kwargs.get("learning_rate", 0.0025)
+        validation_split = kwargs.get("validation_split", 0.2)
+        
         optimizer = Adam(learning_rate)
         self.model.compile(loss="mean_squared_error", optimizer=optimizer, metrics=["accuracy"])
 
         history = self.model.fit(train_x, train_y,
-                                    epochs=epochs)
+                                    epochs=epochs,
+                                    validation_split=validation_split,
+                                    verbose=0)
+        
+        return history
 
     def evaluate(self, test_x, test_y):
         _, acc = self.model.evaluate(test_x, test_y)
         return acc
+
     
+    def predict(self, test_x):
+        res = self.model.predict(test_x)
+        return res
+
     def save_weights(self, filename):
         self.model.save_weights(filename)
 
