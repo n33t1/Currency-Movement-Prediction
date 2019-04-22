@@ -1,0 +1,911 @@
+account
+accounting
+accrue
+accumulate
+acquisition
+activity
+adjustable
+AMEX
+amortization
+annuity
+arbitrage
+arrangement
+arrears
+assets
+authorization
+automated
+average
+averaging
+balance
+balloon payment
+bank
+beneficiary
+bid
+blue chip
+bond
+buying
+buyout
+calculation
+call
+capital gain
+cartel
+certificate
+certified
+churn
+circulation
+collateral
+collect
+commission
+common stock
+compensation
+competitor
+conglomerate
+consolidation
+consortium
+correction
+cost
+credit
+currency
+custodian
+deal
+debenture
+debit
+debt
+deduction
+demand
+depreciation
+depression
+deregulation
+designation
+discount
+discretionary account
+diversify
+dividend
+Dow Jones Average
+downturn
+draft
+driven
+dump
+earn
+electronic
+elimination
+enterprise
+entity
+ESOP
+estimation
+evaluation
+exceed
+exchange rate
+exorbitant
+failure
+falling price
+federal
+fiduciary
+fixed
+float
+foreclosure
+frugality
+fund
+futures
+gain
+GDP
+gold
+government
+growth
+guarantee
+guaranty
+high-interest
+hiring
+illegal
+income
+index
+industrial
+inflated price
+insolvent
+installment
+institution
+institutional trading
+interest
+interest-bearing
+invalidate
+investment
+IRA
+issue
+joint account
+junk bond
+keogh plan
+laundering
+leveraged buyout
+lending rate
+leverage
+liability
+liquidity
+low risk
+maintain
+margin
+market
+maturity
+member
+mercantile
+merger
+money
+municipals
+mutual funds
+negotiable
+non-speculative
+NYSE
+oil
+obligation
+odd lot
+operation
+option
+OTC
+overcompensate
+par value
+peaks
+percent
+planning
+pledge
+points
+portfolio
+practice
+preferred stock
+prepayment penalty
+principal
+product
+progressive
+public
+quality
+qualm
+quantity
+questionable
+quote
+raid
+rate
+record
+recoup
+redemption
+reduction
+regulation
+reserves
+retirement
+risk
+rumors
+sale
+select
+sell-off
+selling
+shares
+short term
+shylock
+speculate
+split
+stagflation
+stock split
+subscription
+summary
+supply and demand
+surety
+surplus
+survivorship
+swap
+tax shelter
+tax year
+tax-exempt bond
+technical
+tender
+thrifts
+transaction
+transfer
+treasury bill
+uncollected
+unit
+unofficial
+unsecured
+usury
+utilities
+valuable
+value
+venture
+voucher
+wage
+warrant
+wide-ranging
+zero-coupon bond
+Afghanistan
+Albania
+Algeria
+Andorra
+Angola
+Antigua & Deps
+Argentina
+Armenia
+Australia
+Austria
+Azerbaijan
+Bahamas
+Bahrain
+Bangladesh
+Barbados
+Belarus
+Belgium
+Belize
+Benin
+Bhutan
+Bolivia
+Bosnia Herzegovina
+Botswana
+Brazil
+Brunei
+Bulgaria
+Burkina
+Burundi
+Cambodia
+Cameroon
+Canada
+Cape Verde
+Central African Rep
+Chad
+Chile
+China
+Colombia
+Comoros
+Congo
+Congo {Democratic Rep}
+Costa Rica
+Croatia
+Cuba
+Cyprus
+Czech Republic
+Denmark
+Djibouti
+Dominica
+Dominican Republic
+East Timor
+Ecuador
+Egypt
+El Salvador
+Equatorial Guinea
+Eritrea
+Estonia
+Ethiopia
+Fiji
+Finland
+France
+Gabon
+Gambia
+Georgia
+Germany
+Ghana
+Greece
+Grenada
+Guatemala
+Guinea
+Guinea-Bissau
+Guyana
+Haiti
+Honduras
+Hungary
+Iceland
+India
+Indonesia
+Iran
+Iraq
+Ireland {Republic}
+Israel
+Italy
+Ivory Coast
+Jamaica
+Japan
+Jordan
+Kazakhstan
+Kenya
+Kiribati
+Korea North
+Korea South
+Kosovo
+Kuwait
+Kyrgyzstan
+Laos
+Latvia
+Lebanon
+Lesotho
+Liberia
+Libya
+Liechtenstein
+Lithuania
+Luxembourg
+Macedonia
+Madagascar
+Malawi
+Malaysia
+Maldives
+Mali
+Malta
+Marshall Islands
+Mauritania
+Mauritius
+Mexico
+Micronesia
+Moldova
+Monaco
+Mongolia
+Montenegro
+Morocco
+Mozambique
+Myanmar, {Burma}
+Namibia
+Nauru
+Nepal
+Netherlands
+New Zealand
+Nicaragua
+Niger
+Nigeria
+Norway
+Oman
+Pakistan
+Palau
+Panama
+Papua New Guinea
+Paraguay
+Peru
+Philippines
+Poland
+Portugal
+Qatar
+Romania
+Russian Federation
+Rwanda
+St Kitts & Nevis
+St Lucia
+Saint Vincent & the Grenadines
+Samoa
+San Marino
+Sao Tome & Principe
+Saudi Arabia
+Senegal
+Serbia
+Seychelles
+Sierra Leone
+Singapore
+Slovakia
+Slovenia
+Solomon Islands
+Somalia
+South Africa
+South Sudan
+Spain
+Sri Lanka
+Sudan
+Suriname
+Swaziland
+Sweden
+Switzerland
+Syria
+Taiwan
+Tajikistan
+Tanzania
+Thailand
+Togo
+Tonga
+Trinidad & Tobago
+Tunisia
+Turkey
+Turkmenistan
+Tuvalu
+Uganda
+Ukraine
+United Arab Emirates
+United Kingdom
+United States
+Uruguay
+Uzbekistan
+Vanuatu
+Vatican City
+Venezuela
+Vietnam
+Yemen
+Zambia
+Zimbabwe
+3M Company
+A.O. Smith 
+Abbott Laboratories
+AbbVie 
+Accenture plc
+Activision Blizzard
+Acuity Brands 
+Adobe Systems 
+Advance Auto Parts
+Advanced Micro Devices 
+AES 
+Aetna 
+Affiliated Managers Group 
+AFLAC 
+Agilent Technologies 
+Air Products  Chemicals 
+Alaska Air Group 
+Akamai Technologies 
+Albemarle 
+Alexandria Real Estate Equities 
+Alexion Pharmaceuticals
+Align Technology
+Allegion
+Allergan Plc
+Alliance Data Systems
+Alliant Energy 
+Allstate 
+Alphabet
+Altria Group 
+Amazon 
+Ameren 
+American Airlines Group
+American Electric Power
+American Express 
+American International Group 
+American Tower
+American Water Works Company 
+Ameriprise Financial
+AmerisourceBergen 
+AMETEK 
+Amgen 
+Amphenol 
+Anadarko Petroleum 
+Analog Devices 
+Andeavor
+ANSYS
+Anthem 
+Aon plc
+Apache oration
+Apartment Investment  Management
+Apple 
+Applied Materials 
+Aptiv Plc
+Archer-Daniels-Midland 
+Arconic 
+Arthur J. Gallagher  
+Assurant 
+ATT 
+Autodesk 
+Automatic Data Processing
+AutoZone 
+AvalonBay Communities 
+Avery Dennison 
+Baker Hughes a GE Company
+Ball 
+Bank of America 
+Baxter International 
+BBT oration
+Becton Dickinson
+Berkshire Hathaway
+Best Buy  
+Biogen 
+BlackRock
+Block HR
+Boeing Company
+BorgWarner
+Boston Properties
+Boston Scientific
+Brighthouse Financial 
+Bristol-Myers Squibb
+Broadcom
+Brown-Forman 
+C. H. Robinson Worldwide
+CA 
+Cabot Oil  Gas
+Cadence Design Systems
+Campbell Soup
+Capital One Financial
+Cardinal Health 
+Carmax 
+Carnival 
+Caterpillar 
+CBOE Holdings
+CBRE Group
+CBS 
+Celgene 
+Centene oration
+CenterPoint Energy
+CenturyLink 
+Cerner
+CF Industries Holdings 
+Charles Schwab oration
+Charter Communications
+Chesapeake Energy
+Chevron 
+Chipotle Mexican Grill
+Chubb Limited
+Church  Dwight
+CIGNA 
+Cimarex Energy
+Cinnati Financial
+Cintas oration
+Cisco Systems
+Citigroup 
+Citizens Financial Group
+Citrix Systems
+CME Group 
+CMS Energy
+Coca-Cola Company (The)
+Cognizant Technology Solutions
+Colgate-Palmolive
+Comcast 
+Comerica 
+Conagra Brands
+Concho Resources
+ConocoPhillips
+Consolidated Edison
+Constellation Brands
+Corning 
+Costco Wholesale 
+Coty 
+Crown Castle International 
+CSRA 
+CSX 
+Cummins 
+CVS Health
+D. R. Horton
+Danaher 
+Darden Restaurants
+DaVita 
+Deere  
+Delta Air Lines 
+Dentsply Sirona
+Devon Energy 
+Digital Realty Trust 
+Discover Financial Services
+Discovery Communications
+Dish Network
+Dollar General
+Dollar Tree
+Dominion Energy
+Dover 
+DowDuPont
+Dr Pepper Snapple Group
+DTE Energy 
+Duke Energy
+Duke Realty 
+DXC Technology
+E*Trade
+Eastman Chemical
+Eaton oration
+eBay 
+Ecolab 
+Edison Int'l
+Edwards Lifesciences
+Electronic Arts
+Emerson Electric Company
+Entergy 
+Envision Healthcare
+EOG Resources
+EQT oration
+Equifax 
+Equinix
+Equity Residential
+Essex Property Trust 
+Estee Lauder Cos.
+Everest Re Group 
+Eversource Energy
+Exelon 
+Expedia 
+Expeditors International
+Express Scripts
+Extra Space Storage
+Exxon Mobil 
+F5 Networks
+Facebook 
+Fastenal 
+Federal Realty Investment Trust
+FedEx oration
+Fidelity National Information Services
+Fifth Third Ban
+FirstEnergy 
+Fiserv 
+FLIR Systems
+Flowserve oration
+Fluor 
+FMC oration
+Foot Locker 
+Ford Motor
+Fortive 
+Fortune Brands Home  Security
+Franklin Resources
+Freeport-McMoRan 
+Gap 
+Garmin 
+Gartner 
+General Dynamics
+General Electric
+General Growth Properties 
+General Mills
+General Motors
+Genuine Parts
+Gilead Sciences
+Global Payments 
+Goldman Sachs Group
+Goodyear Tire  Rubber
+Grainger (W.W.) 
+Halliburton 
+Hanesbrands 
+Harley-Davidson
+Harris oration
+Hartford Financial Svc.Gp.
+Hasbro 
+HCA Holdings
+HCP 
+Helmerich  Payne
+Henry Schein
+Hess oration
+Hewlett Packard Enterprise
+Hilton Worldwide Holdings 
+Hologic
+Home Depot
+Honeywell Int'l 
+Hormel Foods 
+Host Hotels  Resorts
+HP 
+Humana 
+Huntington Bancshares
+Huntington Ingalls Industries
+IDEXX Laboratories
+IHS Markit 
+Illinois Tool Works
+Illumina 
+yte
+Ingersoll-Rand PLC
+Intel 
+Intercontinental Exchange
+International Business Machines
+International Paper
+Interpublic Group
+Intl Flavors  Fragrances
+Intuit 
+Intuitive Surgical 
+Invesco 
+IQVIA Holdings 
+Iron Mountain orporated
+J. B. Hunt Transport Services
+Jacobs Engineering Group
+JM Smucker
+Johnson  Johnson
+Johnson Controls International
+JPMorgan Chase  
+Juniper Networks
+Kansas City Southern
+Kellogg 
+Key
+Kimberly-Clark
+Kimco Realty
+Kinder Morgan
+KLA-Tencor 
+Kohl's 
+Kraft Heinz 
+Kroger 
+L Brands 
+L-3 Communications Holdings
+Laboratory  of America Holding
+Lam Research
+Leggett  Platt
+Lennar 
+Leucadia National 
+Lilly (Eli)  
+Loln National
+LKQ oration
+Lockheed Martin 
+Loews 
+Lowe's Cos.
+LyondellBasell
+MT Bank 
+Macerich
+Macy's 
+Marathon Oil 
+Marathon Petroleum
+Marriott Int'l.
+Marsh  McLennan
+Martin Marietta Materials
+Masco 
+Mastercard 
+Mattel 
+McCormick  
+McDonald's 
+McKesson 
+Medtronic plc
+Merck  
+MetLife 
+Mettler Toledo
+MGM Resorts International
+Michael Kors Holdings
+Microchip Technology
+Micron Technology
+Microsoft 
+Mid-America Apartments
+Mohawk Industries
+Molson Coors Brewing Company
+Mondelez International
+Monsanto 
+Monster Beverage
+Moody's 
+Morgan Stanley
+Motorola Solutions 
+Mylan N.V.
+Nasdaq 
+National Oilwell Varco 
+Navient
+NetApp
+Netflix 
+Newell Brands
+Newfield Exploration 
+Newmont Mining oration
+News  Class A
+News  Class B
+NextEra Energy
+Nielsen Holdings
+Nike
+NiSource 
+Noble Energy 
+Nordstrom
+Norfolk Southern 
+Northern Trust 
+Northrop Grumman 
+Norwegian Cruise Line
+NRG Energy
+Nucor 
+Nvidia oration
+O'Reilly Automotive
+Occidental Petroleum
+Omnicom Group
+ONEOK
+Oracle 
+PACCAR 
+Packaging oration of America
+Parker-Hannifin
+Patterson Companies
+Paychex 
+PayPal
+Pentair 
+People's United Financial
+PepsiCo 
+PerkinElmer
+Perrigo
+Pfizer 
+PGE 
+Philip Morris International
+Phillips 66
+Pinnacle West Capital
+Pioneer Natural Resources
+PNC Financial Services
+Polo Ralph Lauren 
+PPG Industries
+PPL 
+Praxair 
+Priceline 
+Pripal Financial Group
+Procter  Gamble
+Progressive 
+Prologis
+Prudential Financial
+Public Serv. Enterprise 
+Public Storage
+Pulte Homes 
+PVH 
+Qorvo
+QUALCOMM 
+Quanta Services 
+Quest Diagnostics
+Range Resources 
+Raymond James Financial 
+Raytheon 
+Realty ome oration
+Red Hat 
+Regency Centers oration
+Regeneron
+Regions Financial 
+Republic Services 
+ResMed
+Robert Half International
+Rockwell Automation 
+Rockwell Collins
+Roper Technologies
+Ross Stores
+Royal Caribbean Cruises 
+SP Global 
+Salesforce
+SBA Communications
+SCANA 
+Schlumberger 
+Scripps Networks Interactive 
+Seagate Technology
+Sealed Air
+Sempra Energy
+Sherwin-Williams
+Signet Jewelers
+Simon Property Group 
+Skyworks Solutions
+SL Green Realty
+Snap-On 
+Southern 
+Southwest Airlines
+Stanley Black  Decker
+Starbucks 
+State Street 
+Stericycle 
+Stryker 
+SunTrust Banks
+Symantec 
+Synchrony Financial
+Synopsys 
+Sysco 
+T. Rowe Price Group
+Tapestry 
+Target 
+TE Connectivity 
+TechnipFMC
+Texas Instruments
+Textron 
+The Bank of New York Mellon 
+The Clorox Company
+The Cooper Companies
+The Hershey Company
+The Mosaic Company
+The Travelers Companies 
+The Walt Disney Company
+Thermo Fisher Scientific
+Tiffany  
+Time Warner 
+TJX Companies 
+Torchmark 
+Total System Services
+Tractor Supply Company
+TransDigm Group
+TripAdvisor
+Twenty-First Century Fox
+Tyson Foods
+U.S. Ban
+UDR 
+Ulta Salon Cosmetics  Fragrance 
+Under Armour Class
+Union Pacific
+United Continental Holdings
+United Health Group 
+United Parcel Service
+United Rentals 
+United Technologies
+Universal Health Services 
+Unum Group
+V.F. 
+Valero Energy
+Varian Medical Systems
+Ventas 
+Verisign 
+Verisk Analytics
+Verizon Communications
+Vertex Pharmaceuticals 
+Viacom 
+Visa 
+Vornado Realty Trust
+Vulcan Materials
+Wal-Mart Stores
+Walgreens Boots Alliance
+Waste Management 
+Waters oration
+Wec Energy Group 
+Wells Fargo
+Welltower 
+Western Digital
+Western Union 
+WestRock Company
+Weyerhaeuser 
+Whirlpool 
+Williams Cos.
+Willis Towers Watson
+Wyndham Worldwide
+Wynn Resorts 
+Xcel Energy 
+Xerox 
+Xilinx 
+XL Capital
+Xylem 
+Yum! Brands 
+Zimmer Biomet Holdings
+Zions Ban
+Zoetis
